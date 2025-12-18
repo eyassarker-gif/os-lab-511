@@ -1,0 +1,136 @@
+#problem1
+#!/bin/bash
+
+# Function to check prime
+check_prime() {
+    num=$1
+    if [ $num -le 1 ]; then
+        echo "$num is NOT a prime number"
+        return
+    fi
+
+    for ((i=2; i<=num/2; i++)); do
+        if [ $((num % i)) -eq 0 ]; then
+            echo "$num is NOT a prime number"
+            return
+        fi
+    done
+    echo "$num is a PRIME number"
+}
+
+# Function to check leap year
+check_leap() {
+    year=$1
+    if (( (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) )); then
+        echo "$year is a Leap Year"
+    else
+        echo "$year is NOT a Leap Year"
+    fi
+}
+
+# Function to calculate sum of series
+sum_series() {
+    n=$1
+    sum=0
+    for ((i=1; i<=n; i++)); do
+        sum=$((sum + i))
+    done
+    echo "Sum of series (1 to $n) = $sum"
+}
+
+# Main Program
+echo "Enter a number:"
+read num
+
+while true
+do
+    echo "------------------------"
+    echo "1. Check Prime"
+    echo "2. Check Leap Year"
+    echo "3. Print Sum of Series (1 to n)"
+    echo "4. Exit"
+    echo "------------------------"
+    echo "Enter your choice:"
+    read choice
+
+    case $choice in
+        1) check_prime $num ;;
+        2) check_leap $num ;;
+        3) sum_series $num ;;
+        4) echo "Exiting program"; break ;;
+        *) echo "Invalid choice" ;;
+    esac
+Done
+
+ 
+ 
+ #problem2
+#!/bin/bash
+
+echo "Enter starting year:"
+read start
+
+echo "Enter ending year:"
+read end
+
+count=0
+
+echo "Leap years between $start and $end are:"
+
+for ((year=start; year<=end; year++)); do
+    if (( (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) )); then
+        echo $year
+        count=$((count + 1))
+    fi
+done
+
+echo "Total number of leap years = $count"
+ 
+ 
+ #problem3
+#!/bin/bash
+
+pass=0
+fail=0
+
+echo "Enter number of students:"
+read n
+
+for ((i=1; i<=n; i++)); do
+    echo "----------------------"
+    echo "Enter Student ID:"
+    read sid
+
+    echo "Enter marks of 3 subjects:"
+    read m1 m2 m3
+
+    total=$((m1 + m2 + m3))
+    percentage=$((total * 100 / 300))
+
+    if [ $percentage -ge 80 ]; then
+        grade="A+"
+        pass=$((pass + 1))
+    elif [ $percentage -ge 70 ]; then
+        grade="A"
+        pass=$((pass + 1))
+    elif [ $percentage -ge 60 ]; then
+        grade="B"
+        pass=$((pass + 1))
+    elif [ $percentage -ge 50 ]; then
+        grade="C"
+        pass=$((pass + 1))
+    else
+        grade="F"
+        fail=$((fail + 1))
+    fi
+
+    echo "Student ID: $sid"
+    echo "Total Marks: $total"
+    echo "Percentage: $percentage%"
+    echo "Grade: $grade"
+done
+
+echo "======================="
+echo "Final Summary"
+echo "Passed Students: $pass"
+echo "Failed Students: $fail"
